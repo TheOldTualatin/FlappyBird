@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:id="@+id/test"
+>
+    <RelativeLayout
+            android:id="@+id/body"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:background="@drawable/bg_day"
+    >
+        <ImageView
+                android:id="@+id/bird"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/bird0_0"
+                android:layout_centerInParent="true"
+        />
+        <RelativeLayout
+                android:id="@+id/pipe"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+        >
+            <ImageView android:layout_width="50dp"
+                       android:layout_height="200dp"
+                       android:layout_alignParentTop="true"
+                       android:background="@drawable/pipe_down"
+                       android:translationY="-2dp"
+            />
+            <ImageView android:layout_width="50dp"
+                       android:layout_height="300dp"
+                       android:layout_alignParentBottom="true"
+                       android:background="@drawable/pipe_up"
+                       android:transformPivotX="10dp"
+            />
+        </RelativeLayout>
+    </RelativeLayout>
+    <ImageView
+            android:id="@+id/land"
+            android:layout_width="500dp"
+            android:layout_height="200dp"
+            android:background="@drawable/land"
+            android:scaleType="centerCrop"
+    >
+    </ImageView>
+</LinearLayout>
