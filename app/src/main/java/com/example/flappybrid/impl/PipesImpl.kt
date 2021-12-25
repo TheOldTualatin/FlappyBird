@@ -12,6 +12,7 @@ import com.example.flappybird.dao.MyAnimation
  */
 class PipesImpl(val pipes:RelativeLayout):MyAnimation
 {
+//    每一次动画只执行一遍，然后回到原位
     override fun startAnima(late: Long)
     {
         val animationSet = AnimationSet(true)
@@ -30,7 +31,7 @@ class PipesImpl(val pipes:RelativeLayout):MyAnimation
         // 设置动画执行的时间（单位：毫秒）
         // 设置动画执行的时间（单位：毫秒）
         translateAnimation.duration = 5000;
-        translateAnimation.repeatCount = 20;
+        translateAnimation.repeatCount = 1;
         translateAnimation.interpolator = LinearInterpolator();
         // 将TranslateAnimation对象添加到AnimationSet当中
         animationSet.addAnimation(translateAnimation)

@@ -10,7 +10,7 @@ class GravityContrller(val bird:BirdImpl,val gravity: GravityImpl)
 {
     fun startJump()
     {
-//        停止引力
+//        停止引力 --> 跳跃
         gravity.stopAnima();
 //        开始跳跃
         bird.startAnima();

@@ -12,8 +12,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal"
             android:background="@drawable/bg_day"
     >
         <ImageView
@@ -23,10 +21,13 @@
                 android:src="@drawable/bird0_0"
                 android:layout_centerInParent="true"
         />
+
         <RelativeLayout
-                android:id="@+id/pipe"
-                android:layout_width="match_parent"
+                android:id="@+id/pipes1"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:translationX="50dp"
         >
             <ImageView android:layout_width="50dp"
                        android:layout_height="200dp"
@@ -39,6 +40,28 @@
                        android:layout_alignParentBottom="true"
                        android:background="@drawable/pipe_up"
                        android:transformPivotX="10dp"
+            />
+        </RelativeLayout>
+        <RelativeLayout
+                android:id="@+id/pipe2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:translationX="50dp"
+        >
+            <ImageView android:layout_width="50dp"
+                       android:layout_height="200dp"
+                       android:layout_centerHorizontal="true"
+                       android:layout_alignParentTop="true"
+                       android:background="@drawable/pipe_down"
+                       android:translationY="-2dp"
+            />
+            <ImageView android:layout_width="50dp"
+                       android:layout_height="200dp"
+                       android:layout_centerHorizontal="true"
+                       android:layout_alignParentBottom="true"
+                       android:background="@drawable/pipe_up"
+                       android:translationY="-2dp"
             />
         </RelativeLayout>
     </RelativeLayout>

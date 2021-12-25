@@ -27,7 +27,7 @@ class GravityImpl(val bird: ImageView?) : MyAnimation
 //        //        低头
         rotationX = ObjectAnimator.ofFloat(bird,"rotation",-40f);
         rotationX.apply {
-            duration = 200;
+            duration = 350;
             start();
         }
         translationY = ObjectAnimator.ofFloat(bird, "translationY", 850f);
@@ -43,6 +43,7 @@ class GravityImpl(val bird: ImageView?) : MyAnimation
     override fun stopAnima()
     {
         translationY.cancel();
+        rotationX.cancel();
         val x = bird?.x
         val y = bird?.y
         Log.d("Gravity", "x:${x},y:${y}");

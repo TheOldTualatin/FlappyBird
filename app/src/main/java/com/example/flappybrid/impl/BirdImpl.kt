@@ -15,8 +15,9 @@ class BirdImpl(val bird: ImageView?) : MyAnimation
 {
     init
     {
+//        小鸟煽动翅膀帧动画
         bird?.setImageResource(R.drawable.birdanimalist);
-        val animationDrawable = bird?.drawable as AnimationDrawable
+        val animationDrawable = bird?.drawable as AnimationDrawable;
         animationDrawable.isOneShot = false;
         animationDrawable.start();
     }
