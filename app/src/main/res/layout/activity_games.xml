@@ -29,13 +29,17 @@
                 android:layout_alignParentEnd="true"
                 android:translationX="50dp"
         >
-            <ImageView android:layout_width="50dp"
-                       android:layout_height="200dp"
-                       android:layout_alignParentTop="true"
-                       android:background="@drawable/pipe_down"
-                       android:translationY="-2dp"
+            <ImageView
+                    android:id="@+id/topPipe1"
+                    android:layout_width="50dp"
+                    android:layout_height="200dp"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/pipe_down"
+                    android:translationY="-2dp"
             />
-            <ImageView android:layout_width="50dp"
+            <ImageView
+                    android:id="@+id/bottomPipe1"
+                    android:layout_width="50dp"
                        android:layout_height="300dp"
                        android:layout_alignParentBottom="true"
                        android:background="@drawable/pipe_up"
@@ -48,13 +52,17 @@
                 android:layout_alignParentEnd="true"
                 android:translationX="50dp"
         >
-            <ImageView android:layout_width="50dp"
+            <ImageView
+                    android:id="@+id/topPipe2"
+                    android:layout_width="50dp"
                        android:layout_height="200dp"
                        android:layout_alignParentTop="true"
                        android:background="@drawable/pipe_down"
                        android:translationY="-2dp"
             />
-            <ImageView android:layout_width="50dp"
+            <ImageView
+                    android:id="@+id/bottonPipe2"
+                    android:layout_width="50dp"
                        android:layout_height="300dp"
                        android:layout_alignParentBottom="true"
                        android:background="@drawable/pipe_up"

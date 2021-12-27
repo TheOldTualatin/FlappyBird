@@ -2,6 +2,7 @@ package com.example.flappybrid
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.flappybird.impl.BirdImpl
 import com.example.flappybird.impl.GravityImpl
@@ -48,6 +49,6 @@ class GamesActivity : AppCompatActivity()
         Log.d("GamesActivity", "init: ${screenWidth},${screenHeight}");
 //        水管移动
         val pipes = arrayOf(activityGames.pipe1,activityGames.pipe2);
-        PipesImpl(pipes).startAnima();
+        PipesImpl(this,pipes).startAnima();
     }
 }
