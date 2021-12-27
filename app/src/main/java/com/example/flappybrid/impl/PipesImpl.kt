@@ -1,42 +1,48 @@
 package com.example.flappybrid.impl
 
-import android.view.animation.Animation
-import android.view.animation.AnimationSet
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.util.Log
 import android.view.animation.LinearInterpolator
-import android.view.animation.TranslateAnimation
 import android.widget.RelativeLayout
 import com.example.flappybird.dao.MyAnimation
 
 /**
 @author YangQX   2021/12/23 - 10:42
  */
-class PipesImpl(val pipes:RelativeLayout):MyAnimation
+class PipesImpl(val pipes:Array<RelativeLayout>):MyAnimation
 {
 //    每一次动画只执行一遍，然后回到原位
     override fun startAnima(late: Long)
     {
-        val animationSet = AnimationSet(true)
-        // 创建一个RotateAnimation对象（从某个点移动到另一个点）
-        // 创建一个RotateAnimation对象（从某个点移动到另一个点）
-        val translateAnimation = TranslateAnimation(
-            Animation.RELATIVE_TO_SELF,
-            0f,
-            Animation.RELATIVE_TO_SELF,
-            -10f,
-            Animation.RELATIVE_TO_SELF,
-            0f,
-            Animation.RELATIVE_TO_SELF,
-            0.0f
-        )
-        // 设置动画执行的时间（单位：毫秒）
-        // 设置动画执行的时间（单位：毫秒）
-        translateAnimation.duration = 5000;
-        translateAnimation.repeatCount = 1;
-        translateAnimation.interpolator = LinearInterpolator();
-        // 将TranslateAnimation对象添加到AnimationSet当中
-        animationSet.addAnimation(translateAnimation)
-        // 使用ImageView的startAnimation方法开始执行动画
-        pipes.startAnimation(animationSet)
+        val lateList = arrayOf<Long>(0,2000);
+            for(i in pipes.indices)
+            {
+                Log.d("PipesImpl", "startAnima: ${pipes[i].x},${pipes[i].y}");
+                this.move(pipes[i],lateList[i]);
+            }
+    }
+    fun move(pipe:RelativeLayout,late: Long)
+    {
+//        保存移动之前的位置
+        pipe.animate().apply{
+            translationXBy(-1080f-2*50f);
+            duration = 4000;
+            startDelay = late;
+//                    设置动画取消监听
+            setListener(object : AnimatorListenerAdapter(){
+                override fun onAnimationEnd(animation: Animator?)
+                {
+//                    重置当前位置
+                    pipe.x=1080f;
+//                    递归开始循环
+                    move(pipe,0);
+                }
+            })
+            interpolator = LinearInterpolator();
+            withLayer();
+            start();
+        }
     }
 
     override fun stopAnima()

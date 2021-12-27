@@ -1,6 +1,7 @@
 package com.example.flappybrid
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.flappybird.impl.BirdImpl
 import com.example.flappybird.impl.GravityImpl
@@ -18,8 +19,9 @@ class GamesActivity : AppCompatActivity()
         super.onCreate(savedInstanceState);
         activityGames= ActivityGamesBinding.inflate(layoutInflater);
         setContentView(activityGames.root);
+//        初始化
         this.init();
-//        小鸟监听事件
+//        小鸟跳跃监听事件
         activityGames.test.setOnClickListener()
         {
             gravityContrller.startJump();
@@ -35,11 +37,17 @@ class GamesActivity : AppCompatActivity()
         birdGravity.startAnima();
 //        开启地图底端滚动
         LandImpl(activityGames.land).startAnima();
-//        水管移动
-        PipesImpl(activityGames.pipes1).startAnima();
 //        小鸟跳跃
         val birdImpl = BirdImpl(activityGames.bird);
 //        小鸟跳跃控制者
-        gravityContrller = GravityContrller(birdImpl, birdGravity)
+        gravityContrller = GravityContrller(birdImpl, birdGravity);
+//        获取当前屏幕宽高
+        val dm = resources.displayMetrics;
+        val screenWidth = dm.widthPixels;
+        val screenHeight = dm.heightPixels;
+        Log.d("GamesActivity", "init: ${screenWidth},${screenHeight}");
+//        水管移动
+        val pipes = arrayOf(activityGames.pipe1,activityGames.pipe2);
+        PipesImpl(pipes).startAnima();
     }
 }
