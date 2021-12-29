@@ -31,7 +31,7 @@ class GamesActivity : AppCompatActivity()
 
     private fun init()
     {
-        val birdGravity = GravityImpl(activityGames.bird);
+        val birdGravity = GravityImpl(this,activityGames.bird);
 //        小鸟飞行
         Bird(activityGames.bird).fly();
 //        开启地心引力
@@ -42,11 +42,6 @@ class GamesActivity : AppCompatActivity()
         val birdImpl = BirdImpl(activityGames.bird);
 //        小鸟跳跃控制者
         gravityContrller = GravityContrller(birdImpl, birdGravity);
-//        获取当前屏幕宽高
-        val dm = resources.displayMetrics;
-        val screenWidth = dm.widthPixels;
-        val screenHeight = dm.heightPixels;
-        Log.d("GamesActivity", "init: ${screenWidth},${screenHeight}");
 //        水管移动
         val pipes = arrayOf(activityGames.pipe1,activityGames.pipe2);
         PipesImpl(this,pipes).startAnima();

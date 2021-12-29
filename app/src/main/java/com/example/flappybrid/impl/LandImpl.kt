@@ -16,7 +16,6 @@ class LandImpl(val land:ImageView):MyAnimation
     {
         val animationSet = AnimationSet(true)
         // 创建一个RotateAnimation对象（从某个点移动到另一个点）
-        // 创建一个RotateAnimation对象（从某个点移动到另一个点）
         val translateAnimation = TranslateAnimation(
             Animation.RELATIVE_TO_SELF,
             0f,
