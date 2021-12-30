@@ -17,6 +17,7 @@ import com.example.flappybrid.utills.getParentHeight
  */
 class PipesImpl(val context: Context,val pipes:Array<RelativeLayout>):MyAnimation
 {
+//   collision
 //    当前屏幕宽高
     private var screenWidth:Int;
     private var screenHeight:Int;
@@ -89,7 +90,7 @@ class PipesImpl(val context: Context,val pipes:Array<RelativeLayout>):MyAnimatio
      */
     private fun setPipesHeight(topPipe:ImageView,bottomPipe:ImageView)
     {
-        val parentHeight = getParentHeight(topPipe);
+        val parentHeight = topPipe.getParentHeight();
 //        获取随机值
         val gap:Array<Int> = getGap(parentHeight);
         val layoutParams1 = topPipe.layoutParams;

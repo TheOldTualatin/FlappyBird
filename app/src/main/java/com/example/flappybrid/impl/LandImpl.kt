@@ -6,7 +6,6 @@ import android.view.animation.TranslateAnimation
 import android.widget.ImageView
 import com.example.flappybird.dao.MyAnimation
 
-
 /**
 @author YangQX   2021/12/23 - 9:29
  */

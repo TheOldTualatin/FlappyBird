@@ -27,7 +27,7 @@ class GravityImpl(val context: Context,val bird: ImageView) : MyAnimation
             duration = 350;
             start();
         }
-        val parentHeight =  getParentHeight(bird);
+        val parentHeight =  bird.getParentHeight();
 //        小鸟从中心跌落，所以只要走一半的距离
         val fallHeight = (parentHeight/2).toFloat();
 //        移动距离需与父布局高度一致
@@ -43,8 +43,6 @@ class GravityImpl(val context: Context,val bird: ImageView) : MyAnimation
     /**
      * 获取父布局高度
      */
-
-
     override fun stopAnima()
     {
         translationY.cancel();

@@ -1,13 +1,12 @@
 package com.example.flappybrid
 
 import android.os.Bundle
-import android.util.Log
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.flappybird.impl.BirdImpl
 import com.example.flappybird.impl.GravityImpl
 import com.example.flappybrid.databinding.ActivityGamesBinding
 import com.example.flappybrid.entity.Bird
+import com.example.flappybrid.impl.CollisionController
 import com.example.flappybrid.impl.GravityContrller
 import com.example.flappybrid.impl.LandImpl
 import com.example.flappybrid.impl.PipesImpl
@@ -23,10 +22,21 @@ class GamesActivity : AppCompatActivity()
 //        初始化
         this.init();
 //        小鸟跳跃监听事件
-        activityGames.test.setOnClickListener()
+        activityGames.screen.setOnClickListener()
         {
             gravityContrller.startJump();
         }
+    }
+
+//    当准备好交互时开始监听水管移动位置
+    override fun onResume()
+    {
+        super.onResume();
+        val pipes = arrayOf(activityGames.pipe1,activityGames.pipe2);
+        CollisionController(pipes,activityGames.bird).setOnCollision(){
+//            取消跳跃监听
+            activityGames.screen.setOnClickListener(null);
+        };
     }
 
     private fun init()

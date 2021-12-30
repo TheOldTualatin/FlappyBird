@@ -22,8 +22,9 @@ fun getGap(parentHeight:Int):Array<Int>
         val bottomHeight = (sum - topHeight).toInt();
         return arrayOf(topHeight,bottomHeight);
 }
-fun<T : View> getParentHeight(child:T): Int
+
+fun View.getParentHeight(): Int
 {
-        val parent = child.parent as ViewGroup;
-        return parent.height;
+    val parent = this.parent as ViewGroup;
+    return parent.height;
 }
