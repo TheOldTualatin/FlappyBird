@@ -1,4 +1,4 @@
-package com.example.flappybrid.impl
+package com.example.flappybrid.ui.pipes
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -7,7 +7,7 @@ import android.util.Log
 import android.view.animation.LinearInterpolator
 import android.widget.ImageView
 import android.widget.RelativeLayout
-import com.example.flappybird.dao.MyAnimation
+import com.example.flappybrid.ui.animation.MyAnimation
 import com.example.flappybrid.R
 import com.example.flappybrid.utills.getGap
 import com.example.flappybrid.utills.getParentHeight
@@ -15,30 +15,26 @@ import com.example.flappybrid.utills.getParentHeight
 /**
 @author YangQX   2021/12/23 - 10:42
  */
-class PipesImpl(val context: Context,val pipes:Array<RelativeLayout>):MyAnimation
+class PipesImpl(val context: Context,val pipes:Array<RelativeLayout>): MyAnimation
 {
 //   collision
 //    当前屏幕宽高
     private var screenWidth:Int;
     private var screenHeight:Int;
-//    以1080像素为基础单位算出每dp的时间，按照dp来算出水管每移动1px的时间
-    private val baseWidth = 1080;
-    private val baseTime = 4000;
-    private val baseSpeed = baseTime/baseWidth;
-//    适应后速度
-    private var currentSpeed:Long;
+//    移动一整个屏幕的时间
+    private var currentTime:Long;
     init
     {
-        //        获取当前屏幕宽高
+        //    获取当前屏幕宽高
         val dm = context.resources.displayMetrics;
         screenWidth = dm.widthPixels;
         screenHeight = dm.heightPixels;
-        currentSpeed = (baseSpeed*screenWidth).toLong();
+        currentTime = (screenWidth/PipesParameter.baseSpeed).toLong();
     }
 //    每一次动画只执行一遍，然后回到原位
     override fun startAnima(late: Long)
     {
-        val lateList = arrayOf<Long>(0,currentSpeed/2);
+        val lateList = arrayOf<Long>(0,currentTime/2);
             for(i in pipes.indices)
             {
                 this.move(pipes[i],lateList[i]);
@@ -54,7 +50,7 @@ class PipesImpl(val context: Context,val pipes:Array<RelativeLayout>):MyAnimatio
 //        保存移动之前的位置
         pipe.animate().apply{
             translationXBy(-screenWidth-2*50f);
-            duration = currentSpeed;
+            duration = currentTime;
             startDelay = late;
 //            动画取消时监听
             setListener(object : AnimatorListenerAdapter(){
@@ -67,6 +63,7 @@ class PipesImpl(val context: Context,val pipes:Array<RelativeLayout>):MyAnimatio
                     {
                         val topPipe1 = pipe.findViewById<ImageView>(R.id.topPipe1);
                         val bottomPipe1 = pipe.findViewById<ImageView>(R.id.bottomPipe1);
+//                        随机水管高度
                         setPipesHeight(topPipe1,bottomPipe1);
                     }else
                     {

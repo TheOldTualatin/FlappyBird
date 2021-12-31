@@ -1,9 +1,9 @@
-package com.example.flappybird.impl
+package com.example.flappybrid.ui.bird
 
 import android.graphics.drawable.AnimationDrawable
 import android.view.animation.AccelerateInterpolator
 import android.widget.ImageView
-import com.example.flappybird.dao.MyAnimation
+import com.example.flappybrid.ui.animation.MyAnimation
 import com.example.flappybrid.R
 import java.util.*
 
@@ -13,7 +13,7 @@ import java.util.*
  */
 class BirdImpl(val bird: ImageView?) : MyAnimation
 {
-    init
+    fun fly()
     {
 //        小鸟煽动翅膀帧动画
         bird?.setImageResource(R.drawable.birdanimalist);
@@ -29,30 +29,17 @@ class BirdImpl(val bird: ImageView?) : MyAnimation
     override fun startAnima(late: Long)
     {
 //        如果小鸟没有超出屏幕就执行动画
-        if(isOverFlow())
-        {
-            bird?.animate()?.cancel();
-        }else
-        {
-            bird?.let {
-                it.animate().apply {
-                    translationYBy(-200f);
-                    rotation(60f);
-                    duration = 500;
-                    startDelay = late;
-                    interpolator = AccelerateInterpolator(0.2f);
-                    withLayer();
-                    start();
-                }
+        bird?.let {
+            it.animate().apply {
+                translationYBy(-200f);
+                rotation(60f);
+                duration = 500;
+                startDelay = late;
+                interpolator = AccelerateInterpolator(0.2f);
+                withLayer();
+                start();
             }
         }
-    }
-
-    private fun isOverFlow(): Boolean
-    {
-//        判断小鸟坐标
-        val y = bird!!.y;
-        return y < 20;
     }
 
     //    小鸟结束跳跃

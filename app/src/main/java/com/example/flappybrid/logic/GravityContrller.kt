@@ -1,12 +1,12 @@
-package com.example.flappybrid.impl
+package com.example.flappybrid.logic
 
-import com.example.flappybird.impl.BirdImpl
-import com.example.flappybird.impl.GravityImpl
+import com.example.flappybrid.ui.bird.BirdImpl
+import com.example.flappybrid.ui.gravity.GravityImpl
 
 /**
 @author YangQX   2021/12/22 - 12:36
  */
-class GravityContrller(val bird:BirdImpl,val gravity: GravityImpl)
+class GravityContrller(val bird: BirdImpl, val gravity: GravityImpl)
 {
     fun startJump()
     {

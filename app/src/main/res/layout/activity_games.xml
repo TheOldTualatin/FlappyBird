@@ -14,6 +14,24 @@
             android:layout_weight="1"
             android:background="@drawable/bg_day"
     >
+        <FrameLayout
+                android:id="@+id/touch"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+        >
+            <ImageView android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:src="@drawable/text_ready"
+                       android:translationY="20dp"
+                       android:gravity="top"
+            />
+            <ImageView android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_gravity="center"
+                       android:src="@drawable/tutorial"
+            />
+        </FrameLayout>
         <ImageView
                 android:id="@+id/bird"
                 android:layout_width="wrap_content"
@@ -40,9 +58,9 @@
             <ImageView
                     android:id="@+id/bottomPipe1"
                     android:layout_width="50dp"
-                       android:layout_height="0dp"
-                       android:layout_alignParentBottom="true"
-                       android:background="@drawable/pipe_up"
+                    android:layout_height="0dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/pipe_up"
             />
         </RelativeLayout>
         <RelativeLayout
@@ -55,24 +73,24 @@
             <ImageView
                     android:id="@+id/topPipe2"
                     android:layout_width="50dp"
-                       android:layout_height="0dp"
-                       android:layout_alignParentTop="true"
-                       android:background="@drawable/pipe_down"
-                       android:translationY="-2dp"
+                    android:layout_height="0dp"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/pipe_down"
+                    android:translationY="-2dp"
             />
             <ImageView
                     android:id="@+id/bottonPipe2"
                     android:layout_width="50dp"
-                       android:layout_height="0dp"
-                       android:layout_alignParentBottom="true"
-                       android:background="@drawable/pipe_up"
+                    android:layout_height="0dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/pipe_up"
             />
         </RelativeLayout>
     </RelativeLayout>
     <ImageView
             android:id="@+id/land"
             android:layout_width="500dp"
-            android:layout_height="200dp"
+            android:layout_height="300dp"
             android:background="@drawable/land"
             android:scaleType="centerCrop"
     >

@@ -1,12 +1,11 @@
-package com.example.flappybird.impl
+package com.example.flappybrid.ui.gravity
 
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.util.Log
-import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
 import android.widget.ImageView
-import com.example.flappybird.dao.MyAnimation
+import com.example.flappybrid.ui.animation.MyAnimation
 import com.example.flappybrid.utills.getParentHeight
 
 /**
