@@ -1,12 +1,18 @@
 package com.example.flappybrid
 
 import android.os.Bundle
-import android.util.Log
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.example.flappybrid.databinding.ActivityGamesBinding
 import com.example.flappybrid.logic.CollisionController
+import com.example.flappybrid.logic.CounterController
 import com.example.flappybrid.logic.GravityContrller
+import com.example.flappybrid.logic.model.CountViewModel
 import com.example.flappybrid.ui.bird.BirdImpl
 import com.example.flappybrid.ui.gravity.GravityImpl
 import com.example.flappybrid.ui.land.LandImpl
@@ -18,37 +24,58 @@ class GamesActivity : AppCompatActivity()
     private var pipesCrossed = 0;
     lateinit var activityGames: ActivityGamesBinding
     lateinit var gravityContrller: GravityContrller;
-    var flage = true;
+    var firstClick = true;
+    val count by viewModels<CountViewModel>();
+    val updateCounter = 1;
+    var handler = object : Handler(Looper.myLooper()!!)
+    {
+        override fun handleMessage(msg: Message)
+        {
+            when(msg.what)
+            {
+                updateCounter->count.setLiveData(++pipesCrossed);
+            }
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState);
         activityGames = ActivityGamesBinding.inflate(layoutInflater);
         setContentView(activityGames.root);
-//        初始化
         this.init();
-//        小鸟跳跃监听事件
+//        计数器观察者
+        count.liveData.observe(this, Observer {
+            CounterController(this,activityGames.counter,pipesCrossed).onChangeCounter();
+        })
+//        点击屏幕小鸟跳跃
         activityGames.screen.setOnClickListener{
+//            如果小鸟在屏幕之中
             if(activityGames.bird.y>0)
             {
                 gravityContrller.startJump();
             }
 //            判断是否为第一次点击
-            if(flage)
+            if(firstClick)
             {
-                //        水管移动
+//               获取水管对象
                 val pipes = arrayOf(activityGames.pipe1, activityGames.pipe2);
+//                水管开始移动
                 PipesImpl(this, pipes).startAnima();
-                val collisionController = CollisionController(pipes, activityGames.bird)
-                collisionController.setBirdThroughPipesListener(this) {
-                    Log.d("BirdThroughPipes", "onResume: ${++pipesCrossed}");
-                }
-//        当小鸟与水管重合监听
+                val collisionController = CollisionController(pipes, activityGames.bird);
+//               当小鸟与水管重合监听
                 collisionController.setOnCollisionListener{
                     activityGames.screen.setOnClickListener(null);
                 };
-//        当水管跨越小鸟监听
-                activityGames.touch.visibility = View.INVISIBLE;
-                flage = false;
+//               当水管跨越小鸟监听
+                collisionController.setBirdThroughPipesListener(this) {
+                    val msg = Message();
+                    msg.what = updateCounter;
+                    handler.sendMessage(msg)
+                }
+//                隐藏提示
+                activityGames.startText.visibility = View.INVISIBLE;
+                activityGames.hint.visibility = View.INVISIBLE;
+                firstClick = false;
             }
         }
     }

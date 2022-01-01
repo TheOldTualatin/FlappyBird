@@ -20,17 +20,43 @@
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
         >
-            <ImageView android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:src="@drawable/text_ready"
-                       android:translationY="20dp"
-                       android:gravity="top"
-            />
-            <ImageView android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:layout_gravity="center"
-                       android:src="@drawable/tutorial"
-            />
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+            >
+                <ImageView
+                        android:id="@+id/startText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/text_ready"
+                        android:translationY="20dp"
+                        android:gravity="top"
+                />
+                <LinearLayout
+                        android:id="@+id/counter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/startText"
+                        android:layout_centerHorizontal="true"
+                        android:scaleType="centerCrop"
+                >
+                    <ImageView
+                            android:id="@+id/numberScore"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="20dp"
+                            android:src="@drawable/number_score_00"
+                            android:scaleType="centerCrop"
+                    />
+                </LinearLayout>
+                <ImageView
+                        android:id="@+id/hint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/tutorial"
+                />
+            </RelativeLayout>
         </FrameLayout>
         <ImageView
                 android:id="@+id/bird"

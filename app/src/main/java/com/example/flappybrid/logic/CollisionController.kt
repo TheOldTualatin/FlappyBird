@@ -82,7 +82,7 @@ class CollisionController(val pipes:Array<RelativeLayout>,val bird:ImageView)
         return birdStart > topY && birdEnd < bottomY;
     }
 
-//    判断小鸟是否穿过水管
+//    小鸟否穿过水管监听
     fun setBirdThroughPipesListener(context: Context,onThrough: () -> Unit):Boolean
     {
         val timer = Timer();
