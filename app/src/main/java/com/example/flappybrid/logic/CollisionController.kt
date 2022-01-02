@@ -6,9 +6,9 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import com.example.flappybrid.R
 import com.example.flappybrid.ui.pipes.PipesParameter
+import com.example.flappybrid.utills.counter
 import com.example.flappybrid.utills.getParentHeight
 import java.util.*
-import kotlin.math.log
 
 /**
 @author YangQX   2021/12/30 - 10:32
@@ -18,7 +18,7 @@ class CollisionController(val pipes:Array<RelativeLayout>,val bird:ImageView)
     private val TAG = "CollisionController";
     private lateinit var topPipe:ImageView;
     private lateinit var bottomPipe:ImageView;
-
+    private lateinit var counterTimer:Timer;
     /**
      * @param onCollision 水管和鸟相遇的回调
      * @param flag 碰撞则返回fales
@@ -39,6 +39,8 @@ class CollisionController(val pipes:Array<RelativeLayout>,val bird:ImageView)
 //                  调用回调事件
                    if(!isInGap(topPipe,bottomPipe))
                    {
+                       timer.cancel();
+                       counterTimer.cancel();
                        onCollision();
                    }
                }else if(isCollision(pipes[1]))
@@ -48,6 +50,8 @@ class CollisionController(val pipes:Array<RelativeLayout>,val bird:ImageView)
                    var flage = true;
                    if(!isInGap(topPipe,bottomPipe))
                    {
+                       timer.cancel();
+                       counterTimer.cancel();
                        onCollision();
                    }
                }
@@ -85,7 +89,7 @@ class CollisionController(val pipes:Array<RelativeLayout>,val bird:ImageView)
 //    小鸟否穿过水管监听
     fun setBirdThroughPipesListener(context: Context,onThrough: () -> Unit):Boolean
     {
-        val timer = Timer();
+        counterTimer = Timer();
         val dm = context.resources.displayMetrics;
         val screenWidth = dm.widthPixels;
 //        得到水管从开始移动到离开小鸟的距离
@@ -94,7 +98,7 @@ class CollisionController(val pipes:Array<RelativeLayout>,val bird:ImageView)
         val period = (pipeDistance/PipesParameter.baseSpeed).toLong();
         Log.d("setBirdThroughPipesListener", "setBirdThroughPipesListener: +${pipeDistance}")
 //        按照时间调用
-        timer.schedule(object : TimerTask(){
+        counterTimer.schedule(object : TimerTask(){
             override fun run()
             {
                 onThrough();

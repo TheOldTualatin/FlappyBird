@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="top_pipe">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:background">@drawable/pipe_down</item>
+        <item name="android:translationY">-2dp</item>
+    </style>
+    <style name="bottom_pipe">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:background">@drawable/pipe_up</item>
+        <item name="android:translationY">-2dp</item>
+    </style>
+    <style name="pipes">
+        <item name = "android:layout_width">wrap_content</item>
+        <item name = "android:layout_height">match_parent</item>
+        <item name = "android:layout_alignParentEnd">true</item>
+        <item name = "android:translationX">50dp</item>
+    </style>
+</resources>

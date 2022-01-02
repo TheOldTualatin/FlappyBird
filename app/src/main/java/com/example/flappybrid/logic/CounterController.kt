@@ -2,6 +2,7 @@ package com.example.flappybrid.logic
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import com.example.flappybrid.R
@@ -16,23 +17,22 @@ class CounterController(val context: Context,val view: LinearLayout,val number:I
     fun onChangeCounter()
     {
         val numbers:ArrayList<Int> = counter(number);
-        if(numbers.size>2)
+        view.removeAllViews();
+        for (num in numbers)
         {
-            for (num in numbers)
-            {
-                addContextCounter(num);
-            }
-        }else if(number>0)
-        {
-            val numberScore = view.findViewById<ImageView>(R.id.numberScore);
-            numberScore.setImageResource(CounterParameter.numberScore[number]);
+            addContextCounter(num);
         }
     }
     fun addContextCounter(num:Int)
     {
-        view.removeAllViews();
-        val numView = LayoutInflater.from(context).inflate(R.layout.counter_num,view,false) as ImageView;
+        val numView = LayoutInflater.from(context).inflate(R.layout.counter_num,null) as ImageView;
         numView.setImageResource(CounterParameter.numberContext[num]);
+        numView.scaleType = ImageView.ScaleType.CENTER_CROP;
+//        以编程方式创建的view不具有任何参数,手动添加参数
+        val layoutParams = ViewGroup.LayoutParams(40,40);
+        layoutParams.height = 40;
+        layoutParams.width = 40;
+        numView.layoutParams = layoutParams;
         view.addView(numView);
     }
 }
