@@ -31,9 +31,9 @@ class GravityImpl(val context: Context, val bird: ImageView) : MyAnimation
         val fallHeight = (parentHeight / 2).toFloat();
 //        移动距离需与父布局高度一致
         translationY = ObjectAnimator.ofFloat(bird, "translationY", fallHeight).apply{
-            duration = 500
+            duration = 500;
             interpolator = AccelerateInterpolator(1.2f);
-            startDelay = late
+            startDelay = late;
         }
         AnimatorSet().apply {
             play(rotationX).with(translationY);

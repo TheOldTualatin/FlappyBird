@@ -1,4 +1,4 @@
-package com.example.flappybrid.logic
+package com.example.flappybrid.ui.controller
 
 import android.content.Context
 import android.view.LayoutInflater

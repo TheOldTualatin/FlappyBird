@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -16,39 +18,114 @@
             >
         <FrameLayout
                 android:id="@+id/touch"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 >
-            <RelativeLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/gameOver"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    >
+                    android:visibility="gone"
+            >
                 <ImageView
-                        android:id="@+id/startText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/text_ready"
-                        android:translationY="20dp"
-                        android:gravity="top"
-                        />
-                <LinearLayout
-                        android:id="@+id/counter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/startText"
-                        android:layout_centerHorizontal="true"
-                        android:scaleType="centerCrop"
-                        android:orientation="horizontal">
-                </LinearLayout>
+                        app:srcCompat="@drawable/score_panel"
+                        android:id="@+id/scorePanel"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintHorizontal_bias="0.497"
+                        app:layout_constraintVertical_bias="0.501"/>
                 <ImageView
-                        android:id="@+id/hint"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:src="@drawable/tutorial"
-                        />
-            </RelativeLayout>
+                        app:srcCompat="@drawable/button_play"
+                        android:id="@+id/restart"
+                        app:layout_constraintTop_toBottomOf="@+id/scorePanel"
+                        app:layout_constraintStart_toStartOf="@+id/scorePanel"/>
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/button_score"
+                        android:id="@+id/imageView9"
+                        app:layout_constraintEnd_toEndOf="@+id/scorePanel"
+                        app:layout_constraintTop_toBottomOf="@+id/scorePanel"/>
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/text_game_over"
+                        android:id="@+id/imageView10"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toTopOf="@+id/scorePanel"
+                        android:layout_marginBottom="20dp"/>
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageView11"
+                        app:layout_constraintStart_toStartOf="@+id/scorePanel"
+                        app:layout_constraintEnd_toEndOf="@+id/scorePanel"
+                        app:layout_constraintHorizontal_bias="0.154"
+                        app:layout_constraintTop_toTopOf="@+id/scorePanel"
+                        app:layout_constraintBottom_toBottomOf="@+id/scorePanel"/>
+                <TextView
+                        android:gravity="center"
+                        android:layout_width="47dp"
+                        android:layout_height="25dp"
+                        android:id="@+id/score"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        app:layout_constraintTop_toTopOf="@+id/scorePanel"
+                        app:layout_constraintEnd_toEndOf="@+id/scorePanel"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginEnd="28dp"/>
+                <TextView
+                        android:gravity="center"
+                        android:layout_width="47dp"
+                        android:layout_height="25dp"
+                        android:id="@+id/best"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/scorePanel"
+                        app:layout_constraintEnd_toEndOf="@+id/scorePanel"
+                        android:layout_marginEnd="28dp"
+                        android:layout_marginBottom="24dp"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        tools:layout_editor_absoluteY="-1dp"
+                        tools:layout_editor_absoluteX="0dp"
+                        android:id="@+id/relativeLayout">
+                    <ImageView
+                            android:id="@+id/startText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/text_ready"
+                            android:translationY="20dp"
+                            android:gravity="top"
+                    />
+                    <LinearLayout
+                            android:id="@+id/counter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/startText"
+                            android:layout_centerHorizontal="true"
+                            android:scaleType="centerCrop"
+                            android:orientation="horizontal">
+                    </LinearLayout>
+                    <ImageView
+                            android:id="@+id/hint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/tutorial"
+                    />
+                </RelativeLayout>
         </FrameLayout>
         <ImageView
                 android:id="@+id/bird"

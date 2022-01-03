@@ -1,4 +1,4 @@
-package com.example.flappybrid.logic
+package com.example.flappybrid.ui.controller
 
 import com.example.flappybrid.ui.bird.BirdImpl
 import com.example.flappybrid.ui.gravity.GravityImpl
