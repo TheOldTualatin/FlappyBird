@@ -1,5 +1,6 @@
 package com.example.flappybrid.ui.gravity
 
+import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.util.Log
@@ -11,7 +12,7 @@ import com.example.flappybrid.utills.getParentHeight
 /**
 @author YangQX   2021/12/21 - 10:47
  */
-class GravityImpl(val context: Context,val bird: ImageView) : MyAnimation
+class GravityImpl(val context: Context, val bird: ImageView) : MyAnimation
 {
     // 定义定时器
     lateinit var translationY: ObjectAnimator;
@@ -21,21 +22,22 @@ class GravityImpl(val context: Context,val bird: ImageView) : MyAnimation
     override fun startAnima(late: Long)
     {
         // 低头
-        rotationX = ObjectAnimator.ofFloat(bird,"rotation",-40f);
+        rotationX = ObjectAnimator.ofFloat(bird, "rotation", -40f);
         rotationX.apply {
             duration = 350;
-            start();
         }
-        val parentHeight =  bird.getParentHeight();
+        val parentHeight = bird.getParentHeight();
 //        小鸟从中心跌落，所以只要走一半的距离
-        val fallHeight = (parentHeight/2).toFloat();
+        val fallHeight = (parentHeight / 2).toFloat();
 //        移动距离需与父布局高度一致
-        translationY = ObjectAnimator.ofFloat(bird, "translationY", fallHeight);
-        translationY.apply {
+        translationY = ObjectAnimator.ofFloat(bird, "translationY", fallHeight).apply{
             duration = 500
             interpolator = AccelerateInterpolator(1.2f);
             startDelay = late
-            start()
+        }
+        AnimatorSet().apply {
+            play(rotationX).with(translationY);
+            start();
         }
     }
 

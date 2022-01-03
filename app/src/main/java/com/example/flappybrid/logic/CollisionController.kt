@@ -6,7 +6,6 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import com.example.flappybrid.R
 import com.example.flappybrid.ui.pipes.PipesParameter
-import com.example.flappybrid.utills.counter
 import com.example.flappybrid.utills.getParentHeight
 import java.util.*
 
@@ -47,7 +46,6 @@ class CollisionController(val pipes:Array<RelativeLayout>,val bird:ImageView)
                {
                    topPipe = pipes[1].findViewById(R.id.topPipe2);
                    bottomPipe = pipes[1].findViewById(R.id.bottonPipe2);
-                   var flage = true;
                    if(!isInGap(topPipe,bottomPipe))
                    {
                        timer.cancel();

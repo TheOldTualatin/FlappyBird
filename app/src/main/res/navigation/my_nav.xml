@@ -9,7 +9,9 @@
             android:label="StartFragment" >
         <action
                 android:id="@+id/action_startFragment_to_gameFragment"
-                app:destination="@id/gameFragment" />
+                app:destination="@id/gameFragment"
+                app:enterAnim="@anim/fragment_game_fade_in"
+                app:exitAnim="@anim/frgament_start_fade_out"/>
     </fragment>
     <fragment
             android:id="@+id/gameFragment"

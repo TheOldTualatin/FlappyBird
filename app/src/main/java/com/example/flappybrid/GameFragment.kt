@@ -25,7 +25,6 @@ class GameFragment : Fragment() {
     private val TAG = "GamesActivity";
     private var pipesCrossed = -2;
     lateinit var fragmentGamesBinding: FragmentGameBinding
-    lateinit var gravityContrller: GravityContrller;
     var firstClick = true;
     val count by activityViewModels<CountViewModel>();
     val updateCounter = 1;
@@ -40,6 +39,9 @@ class GameFragment : Fragment() {
             }
         }
     }
+    lateinit var birdImpl:BirdImpl;
+    lateinit var gravityContrller: GravityContrller;
+    lateinit var gravityImpl: GravityImpl;
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,14 +54,13 @@ class GameFragment : Fragment() {
         })
 //        点击屏幕小鸟跳跃
         fragmentGamesBinding.screen.setOnClickListener{
-//            如果小鸟在屏幕之中
-            if(fragmentGamesBinding.bird.y>0)
-            {
-                gravityContrller.startJump();
-            }
 //            判断是否为第一次点击
             if(firstClick)
             {
+//        对小鸟的地心引力
+                gravityImpl = GravityImpl(requireContext(), fragmentGamesBinding.bird);
+//        开启地心引力
+                gravityImpl.startAnima();
 //               获取水管对象
                 val pipes = arrayOf(fragmentGamesBinding.pipe1, fragmentGamesBinding.pipe2);
 //                水管开始移动
@@ -84,22 +85,25 @@ class GameFragment : Fragment() {
                 fragmentGamesBinding.hint.visibility = View.INVISIBLE;
                 firstClick = false;
             }
+            //            如果小鸟在屏幕之中
+            if(fragmentGamesBinding.bird.y>0)
+            {
+                //        小鸟跳跃控制者
+                gravityContrller = GravityContrller(birdImpl, gravityImpl);
+                gravityContrller.startJump();
+            }
         }
         return fragmentGamesBinding.root;
     }
 
     private fun init()
     {
-        val birdGravity = GravityImpl(requireContext(), fragmentGamesBinding.bird);
-//        开启地心引力
-        birdGravity.startAnima();
+
 //        开启地图底端滚动
         LandImpl(fragmentGamesBinding.land).startAnima();
 //        创建小鸟
-        val birdImpl = BirdImpl(fragmentGamesBinding.bird);
+        birdImpl = BirdImpl(fragmentGamesBinding.bird);
 //        小鸟飞行
         birdImpl.fly();
-//        小鸟跳跃控制者
-        gravityContrller = GravityContrller(birdImpl, birdGravity);
     }
 }

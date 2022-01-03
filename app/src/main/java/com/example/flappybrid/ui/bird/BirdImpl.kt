@@ -1,10 +1,14 @@
 package com.example.flappybrid.ui.bird
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.graphics.drawable.AnimationDrawable
 import android.view.animation.AccelerateInterpolator
 import android.widget.ImageView
-import com.example.flappybrid.ui.animation.MyAnimation
 import com.example.flappybrid.R
+import com.example.flappybrid.ui.animation.MyAnimation
 import java.util.*
 
 
@@ -40,6 +44,23 @@ class BirdImpl(val bird: ImageView?) : MyAnimation
                 start();
             }
         }
+    }
+
+    fun flaot()
+    {
+        val down = ObjectAnimator.ofFloat(bird,"translationY",0f,50f);
+        val up = ObjectAnimator.ofFloat(bird,"translationY",50f,0f);
+        val animatorSet = AnimatorSet().apply {
+            duration = 1000;
+            play(down).before(up);
+            start();
+        };
+        animatorSet.addListener(object : AnimatorListenerAdapter(){
+            override fun onAnimationEnd(animation: Animator?)
+            {
+                animatorSet.start();
+            }
+        })
     }
 
     //    小鸟结束跳跃

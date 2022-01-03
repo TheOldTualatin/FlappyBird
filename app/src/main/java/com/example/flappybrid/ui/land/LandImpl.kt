@@ -27,7 +27,7 @@ class LandImpl(val land:ImageView): MyAnimation
         )
         // 设置动画执行的时间（单位：毫秒）
         translateAnimation.duration = 180
-        translateAnimation.repeatCount = Int.MAX_VALUE;
+        translateAnimation.repeatCount = Animation.INFINITE;
         // 将TranslateAnimation对象添加到AnimationSet当中
         animationSet.addAnimation(translateAnimation)
         // 使用ImageView的startAnimation方法开始执行动画
