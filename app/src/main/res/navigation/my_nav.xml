@@ -5,20 +5,33 @@
         app:startDestination="@id/startFragment">
     <fragment
             android:id="@+id/startFragment"
-            android:name="com.example.flappybrid.StartFragment"
-            android:label="StartFragment" >
+            android:name="com.example.flappybrid.ui.StartFragment"
+            android:label="StartFragment">
         <action
                 android:id="@+id/action_startFragment_to_gameFragment"
                 app:destination="@id/gameFragment"
                 app:enterAnim="@anim/fragment_game_fade_in"
-                app:exitAnim="@anim/frgament_start_fade_out"/>
+                app:exitAnim="@anim/frgament_start_fade_out" />
+        <action
+                android:id="@+id/action_startFragment_to_leaderboardFragment"
+                app:destination="@id/leaderboardFragment" />
     </fragment>
     <fragment
             android:id="@+id/gameFragment"
-            android:name="com.example.flappybrid.GameFragment"
-            android:label="GameFragment" >
+            android:name="com.example.flappybrid.ui.GameFragment"
+            android:label="GameFragment">
         <action
                 android:id="@+id/action_gameFragment_to_startFragment"
                 app:destination="@id/startFragment" />
+        <action
+                android:id="@+id/action_gameFragment_to_leaderboardFragment"
+                app:destination="@id/leaderboardFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/leaderboardFragment"
+            android:name="com.example.flappybrid.ui.LeaderboardFragment"
+            android:label="leaderboard.LeaderboardFragment"
+            >
+
     </fragment>
 </navigation>

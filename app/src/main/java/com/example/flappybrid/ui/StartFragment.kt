@@ -1,4 +1,4 @@
-package com.example.flappybrid
+package com.example.flappybrid.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.example.flappybrid.R
 import com.example.flappybrid.databinding.FragmentStartBinding
 import com.example.flappybrid.ui.bird.BirdImpl
 import com.example.flappybrid.ui.land.LandImpl
@@ -24,11 +25,14 @@ class StartFragment : Fragment()
             fly();
             flaot();
         }
+        val navController = this.findNavController();
 //        地面滚动
         LandImpl(land).startAnima();
         fragmentStartBinding.start.setOnClickListener{
-            val navController = this.findNavController();
             navController.navigate(R.id.action_startFragment_to_gameFragment);
+        }
+        fragmentStartBinding.startLeaderboard.setOnClickListener{
+            navController.navigate(R.id.action_startFragment_to_leaderboardFragment);
         }
         return fragmentStartBinding.root;
     }

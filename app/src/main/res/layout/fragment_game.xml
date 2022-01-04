@@ -50,7 +50,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:srcCompat="@drawable/button_score"
-                        android:id="@+id/imageView9"
+                        android:id="@+id/gamesLeaderboard"
                         app:layout_constraintEnd_toEndOf="@+id/scorePanel"
                         app:layout_constraintTop_toBottomOf="@+id/scorePanel"/>
                 <ImageView

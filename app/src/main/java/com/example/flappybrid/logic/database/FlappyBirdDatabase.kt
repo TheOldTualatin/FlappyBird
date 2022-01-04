@@ -17,6 +17,7 @@ abstract class FlappyBirdDatabase:RoomDatabase()
     companion object{
         private var instance : FlappyBirdDatabase? = null;
 
+        @JvmStatic
         @Synchronized
         fun getDatabase(context: Context):FlappyBirdDatabase
         {

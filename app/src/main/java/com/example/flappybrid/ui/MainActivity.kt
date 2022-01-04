@@ -1,7 +1,8 @@
-package com.example.flappybrid
+package com.example.flappybrid.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.flappybrid.R
 
 class MainActivity : AppCompatActivity()
 {

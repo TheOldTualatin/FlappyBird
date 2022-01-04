@@ -1,4 +1,4 @@
-package com.example.flappybrid
+package com.example.flappybrid.ui
 
 import android.os.Bundle
 import android.os.Handler
@@ -12,8 +12,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import com.example.flappybrid.R
 import com.example.flappybrid.databinding.FragmentGameBinding
 import com.example.flappybrid.logic.database.FlappyBirdDatabase
 import com.example.flappybrid.logic.entities.Transcript
@@ -34,8 +35,7 @@ class GameFragment : Fragment(), View.OnClickListener
 
     private var pipesCrossed = -2;
     var firstClick = true;
-    val count by activityViewModels<CountViewModel>();
-    val cureentScore = MutableLiveData<Int>();
+    val count by activityViewModels<CountViewModel>()
     val updateCounter = 1;
     val gameOver = 2;
 
@@ -74,20 +74,6 @@ class GameFragment : Fragment(), View.OnClickListener
         //        计数器观察者
         count.liveData.observe(requireActivity(), Observer {
             CounterController(requireContext(), fragmentGamesBinding.counter, pipesCrossed).onChangeCounter();
-        })
-//        游戏结束成绩观察者
-        cureentScore.observe(requireActivity(), Observer {
-            val flappyBirdDao = FlappyBirdDatabase.getDatabase(requireContext()).flappyBirdDao();
-            val dNow = Date()
-            val ft = SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
-            thread {
-                val transcript = Transcript(null, pipesCrossed, ft.format(dNow))
-                val addScore = flappyBirdDao.addScore(transcript)
-                if(addScore > 0)
-                    Log.d("GameFragment", "DB:OK");
-                else
-                    Log.d("GameFragment", "DB:FAIL");
-            }
         })
     }
 
@@ -171,12 +157,44 @@ class GameFragment : Fragment(), View.OnClickListener
     {
         fragmentGamesBinding.score.text = pipesCrossed.toString();
         fragmentGamesBinding.gameOver.visibility = View.VISIBLE;
+        saveCureentScore(pipesCrossed);
 //        重新开始
         fragmentGamesBinding.restart.setOnClickListener{
-//                子线程中使用postValue
-            cureentScore.value = pipesCrossed;
+//           保存当前成绩
             parentFragmentManager.commit {
                 replace<GameFragment>(R.id.fragmentContainerView);
+            }
+        }
+        val navController = this.findNavController();
+//        查看排行榜
+        fragmentGamesBinding.gamesLeaderboard.setOnClickListener{
+            parentFragmentManager.commit {
+                navController.navigate(R.id.action_gameFragment_to_leaderboardFragment);
+            }
+        }
+    }
+
+    fun saveCureentScore(cureentScore:Int)
+    {
+        val flappyBirdDao = FlappyBirdDatabase.getDatabase(requireContext()).flappyBirdDao();
+        val dNow = Date()
+        val ft = SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
+        thread {
+            val transcript = Transcript(null, cureentScore, ft.format(dNow))
+            val queryTotalNumber = flappyBirdDao.queryTotalNumber()
+            Log.d("GameFragment", "queryTotalNumber: ${queryTotalNumber}")
+            if(queryTotalNumber<=10)
+            {
+                val addScore = flappyBirdDao.addScore(transcript);
+                if(addScore > 0)
+                    Log.d("GameFragment", "DB:OK")
+                else
+                    Log.d("GameFragment", "DB:FAIL")
+            }else
+            {
+                val worstScore = flappyBirdDao.queryWorstScore()
+                val id = worstScore[0].id
+                flappyBirdDao.updateTranscriptByID(id=id!!, score = cureentScore,ft.format(dNow))
             }
         }
     }
