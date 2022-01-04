@@ -3,13 +3,14 @@ package com.example.flappybrid.logic.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.*
 
 /**
-@author YangQX   2022/1/3 - 17:03
+@author YangQX   2022/1/4 - 11:34
  */
 @Entity(tableName = "Transcript")
-data class Transcript(
-    @PrimaryKey(autoGenerate = true) val id:Int,
-    @ColumnInfo(name = "score")val score:Int,
-    @ColumnInfo(name = "date")val date:String,
+class Transcript(
+    @PrimaryKey(autoGenerate = true) var id:Int?,
+    @ColumnInfo(name = "score")var score:Int,
+    @ColumnInfo(name = "date")var date:String,
 )

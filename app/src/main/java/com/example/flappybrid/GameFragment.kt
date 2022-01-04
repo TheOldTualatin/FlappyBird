@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,16 +12,22 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.flappybrid.databinding.FragmentGameBinding
+import com.example.flappybrid.logic.database.FlappyBirdDatabase
+import com.example.flappybrid.logic.entities.Transcript
+import com.example.flappybrid.logic.model.CountViewModel
+import com.example.flappybrid.ui.bird.BirdImpl
 import com.example.flappybrid.ui.controller.CollisionController
 import com.example.flappybrid.ui.controller.CounterController
 import com.example.flappybrid.ui.controller.GravityContrller
-import com.example.flappybrid.logic.model.CountViewModel
-import com.example.flappybrid.ui.bird.BirdImpl
 import com.example.flappybrid.ui.gravity.GravityImpl
 import com.example.flappybrid.ui.land.LandImpl
 import com.example.flappybrid.ui.pipes.PipesImpl
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.concurrent.thread
 
 class GameFragment : Fragment(), View.OnClickListener
 {
@@ -28,6 +35,7 @@ class GameFragment : Fragment(), View.OnClickListener
     private var pipesCrossed = -2;
     var firstClick = true;
     val count by activityViewModels<CountViewModel>();
+    val cureentScore = MutableLiveData<Int>();
     val updateCounter = 1;
     val gameOver = 2;
 
@@ -55,13 +63,32 @@ class GameFragment : Fragment(), View.OnClickListener
     {
         fragmentGamesBinding = FragmentGameBinding.inflate(layoutInflater);
         this.init();
-//        计数器观察者
-        count.liveData.observe(requireActivity(), Observer {
-            CounterController(requireContext(), fragmentGamesBinding.counter, pipesCrossed).onChangeCounter();
-        })
+        this.observers();
 //        点击屏幕小鸟跳跃
         fragmentGamesBinding.screen.setOnClickListener(this);
         return fragmentGamesBinding.root;
+    }
+
+    private fun observers()
+    {
+        //        计数器观察者
+        count.liveData.observe(requireActivity(), Observer {
+            CounterController(requireContext(), fragmentGamesBinding.counter, pipesCrossed).onChangeCounter();
+        })
+//        游戏结束成绩观察者
+        cureentScore.observe(requireActivity(), Observer {
+            val flappyBirdDao = FlappyBirdDatabase.getDatabase(requireContext()).flappyBirdDao();
+            val dNow = Date()
+            val ft = SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
+            thread {
+                val transcript = Transcript(null, pipesCrossed, ft.format(dNow))
+                val addScore = flappyBirdDao.addScore(transcript)
+                if(addScore > 0)
+                    Log.d("GameFragment", "DB:OK");
+                else
+                    Log.d("GameFragment", "DB:FAIL");
+            }
+        })
     }
 
     private fun init()
@@ -79,10 +106,7 @@ class GameFragment : Fragment(), View.OnClickListener
     {
         when (v?.id)
         {
-            R.id.screen ->
-            {
-                onClickScreen()
-            }
+            R.id.screen -> onClickScreen();
         }
     }
 
@@ -147,11 +171,13 @@ class GameFragment : Fragment(), View.OnClickListener
     {
         fragmentGamesBinding.score.text = pipesCrossed.toString();
         fragmentGamesBinding.gameOver.visibility = View.VISIBLE;
+//        重新开始
         fragmentGamesBinding.restart.setOnClickListener{
+//                子线程中使用postValue
+            cureentScore.value = pipesCrossed;
             parentFragmentManager.commit {
                 replace<GameFragment>(R.id.fragmentContainerView);
             }
         }
     }
-
 }

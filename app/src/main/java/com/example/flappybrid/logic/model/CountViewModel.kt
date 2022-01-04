@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel
  */
 class CountViewModel : ViewModel()
 {
-    private val number = MutableLiveData<Int>()
+    private val number = MutableLiveData<Int>();
     public val liveData get():LiveData<Int> = this.number;
     public fun setLiveData(value: Int)
     {
