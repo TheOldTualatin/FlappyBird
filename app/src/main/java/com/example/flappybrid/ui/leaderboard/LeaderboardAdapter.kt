@@ -27,7 +27,7 @@ class LeaderboardAdapter(private val data:List<Transcript>) : RecyclerView.Adapt
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val transcript = data[position];
-        holder.rank.text = position.toString();
+        holder.rank.text = (position+1).toString();
         holder.score.text= transcript.score.toString();
         holder.date.text = transcript.date;
     }

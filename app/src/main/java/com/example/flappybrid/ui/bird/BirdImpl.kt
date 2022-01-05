@@ -68,4 +68,8 @@ class BirdImpl(val bird: ImageView?) : MyAnimation
     {
         bird?.clearAnimation();
     }
+
+    override fun pause() {
+        TODO("Not yet implemented")
+    }
 }

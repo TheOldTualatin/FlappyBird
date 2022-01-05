@@ -52,6 +52,11 @@ class CollisionController(val pipes:Array<RelativeLayout>,val bird:ImageView)
                        counterTimer.cancel();
                        onCollision();
                    }
+               }else if(bottomOut())
+               {
+                   timer.cancel();
+                   counterTimer.cancel();
+                   onCollision();
                }
            }
        },0,1);
@@ -104,4 +109,5 @@ class CollisionController(val pipes:Array<RelativeLayout>,val bird:ImageView)
         },period,period);
         return true;
     };
+    private fun bottomOut() = bird.y>=bird.getParentHeight()-100;
 }

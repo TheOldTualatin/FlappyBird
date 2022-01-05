@@ -38,4 +38,8 @@ class LandImpl(val land:ImageView): MyAnimation
     {
         TODO("Not yet implemented")
     }
+
+    override fun pause() {
+        TODO("Not yet implemented")
+    }
 }

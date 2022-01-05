@@ -8,4 +8,5 @@ interface MyAnimation
 {
     fun startAnima(late:Long=0);
     fun stopAnima();
+    fun pause();
 }

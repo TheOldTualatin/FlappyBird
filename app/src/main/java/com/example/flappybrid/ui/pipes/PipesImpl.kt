@@ -41,6 +41,14 @@ class PipesImpl(val context: Context,val pipes:Array<RelativeLayout>): MyAnimati
             }
     }
 
+    override fun stopAnima()
+    {
+        TODO("Not yet implemented")
+    }
+
+    override fun pause() {
+    }
+
     /**
      * 为了保证自适应，必须按照不同屏幕尺寸进行适配,移动距离根据屏幕宽度决定
      */
@@ -96,10 +104,5 @@ class PipesImpl(val context: Context,val pipes:Array<RelativeLayout>): MyAnimati
         val layoutParams2 = bottomPipe.layoutParams;
         layoutParams2.height = gap[1];
         bottomPipe.layoutParams = layoutParams2;
-    }
-
-    override fun stopAnima()
-    {
-        TODO("Not yet implemented")
     }
 }

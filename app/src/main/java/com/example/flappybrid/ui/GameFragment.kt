@@ -80,11 +80,9 @@ class GameFragment : Fragment(), View.OnClickListener
     private fun init()
     {
 
-//        开启地图底端滚动
+//        开启地图底端滚动,小鸟飞行
         LandImpl(fragmentGamesBinding.land).startAnima();
-//        创建小鸟
         birdImpl = BirdImpl(fragmentGamesBinding.bird);
-//        小鸟飞行
         birdImpl.fly();
     }
 
@@ -100,9 +98,7 @@ class GameFragment : Fragment(), View.OnClickListener
     {
 //        判断是否为第一次点击,如果为第一次点击，开始执行碰
         if (firstClick)
-        {
             firstClick = gameGrow();
-        }
         //            如果小鸟在屏幕之中
         if (fragmentGamesBinding.bird.y > 0)
         {
@@ -138,7 +134,6 @@ class GameFragment : Fragment(), View.OnClickListener
             {
                 val msg = Message();
                 msg.what = updateCounter;
-//               将消息转发到主线程中
                 handler.sendMessage(msg)
             }
         }
@@ -146,9 +141,9 @@ class GameFragment : Fragment(), View.OnClickListener
         return false;
     }
 
+//       隐藏提示
     private fun hintHidden()
     {
-//       隐藏提示
         fragmentGamesBinding.startText.visibility = View.GONE;
         fragmentGamesBinding.hint.visibility = View.GONE;
     }
@@ -158,9 +153,7 @@ class GameFragment : Fragment(), View.OnClickListener
         fragmentGamesBinding.score.text = pipesCrossed.toString();
         fragmentGamesBinding.gameOver.visibility = View.VISIBLE;
         saveCureentScore(pipesCrossed);
-//        重新开始
         fragmentGamesBinding.restart.setOnClickListener{
-//           保存当前成绩
             parentFragmentManager.commit {
                 replace<GameFragment>(R.id.fragmentContainerView);
             }
@@ -183,19 +176,7 @@ class GameFragment : Fragment(), View.OnClickListener
             val transcript = Transcript(null, cureentScore, ft.format(dNow))
             val queryTotalNumber = flappyBirdDao.queryTotalNumber()
             Log.d("GameFragment", "queryTotalNumber: ${queryTotalNumber}")
-            if(queryTotalNumber<=10)
-            {
-                val addScore = flappyBirdDao.addScore(transcript);
-                if(addScore > 0)
-                    Log.d("GameFragment", "DB:OK")
-                else
-                    Log.d("GameFragment", "DB:FAIL")
-            }else
-            {
-                val worstScore = flappyBirdDao.queryWorstScore()
-                val id = worstScore[0].id
-                flappyBirdDao.updateTranscriptByID(id=id!!, score = cureentScore,ft.format(dNow))
-            }
+            val addScore = flappyBirdDao.addScore(transcript);
         }
     }
 }

@@ -15,6 +15,7 @@
             android:layout_weight="1"
             android:background="@drawable/bg_day"
     >
+
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -23,12 +24,13 @@
                     android:src="@drawable/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/imageView3"
                     app:layout_constraintStart_toStartOf="@+id/start"
                     app:layout_constraintEnd_toEndOf="@+id/startLeaderboard"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="120dp"
-                    app:layout_constraintHorizontal_bias="0.497"/>
+                    app:layout_constraintVertical_bias="0.5"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintBottom_toTopOf="@+id/bird" />
+
             <ImageView
                     android:src="@drawable/button_play"
                     android:layout_width="wrap_content"
@@ -37,9 +39,9 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginStart="64dp"
                     app:layout_constraintVertical_bias="0.891"
-            />
+                    app:layout_constraintEnd_toStartOf="@+id/startLeaderboard" />
+
             <ImageView
                     android:src="@drawable/button_score"
                     android:layout_width="wrap_content"
@@ -48,17 +50,21 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/start"
                     app:layout_constraintVertical_bias="0.891"
-                    android:layout_marginEnd="64dp"
-            />
+             />
+
+            <ImageView
+                    android:id="@+id/bird"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/bird0_0"
+                    android:layout_centerInParent="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <ImageView
-                android:id="@+id/bird"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/bird0_0"
-                android:layout_centerInParent="true"
-        />
     </RelativeLayout>
     <ImageView
             android:id="@+id/land"

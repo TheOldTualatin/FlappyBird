@@ -53,4 +53,8 @@ class GravityImpl(val context: Context, val bird: ImageView) : MyAnimation
         Log.d("Gravity", "x:${x},y:${y}");
     }
 
+    override fun pause() {
+        TODO("Not yet implemented")
+    }
+
 }

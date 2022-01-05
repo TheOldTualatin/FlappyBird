@@ -1,11 +1,9 @@
 package com.example.flappybrid.logic.dao
 
-import androidx.lifecycle.LiveData
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
 import com.example.flappybrid.logic.entities.Transcript
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.distinctUntilChanged
 
 /**
 @author YangQX   2022/1/3 - 17:11
@@ -17,7 +15,7 @@ interface FlappyBirdDao
     @Insert
     fun addScore(transcript: Transcript):Long;
 
-    @Query("select * from Transcript ORDER BY score desc limit 0,10")
+    @Query("select * from Transcript ORDER BY score desc limit 0,7")
     fun queryAllTranscript(): List<Transcript>;
 
     @Query("update Transcript set score = :score,date = :date where id = :id")

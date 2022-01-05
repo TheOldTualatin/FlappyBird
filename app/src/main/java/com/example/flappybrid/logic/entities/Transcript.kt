@@ -3,7 +3,6 @@ package com.example.flappybrid.logic.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.*
 
 /**
 @author YangQX   2022/1/4 - 11:34
